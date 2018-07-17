@@ -92,7 +92,8 @@ server <- function(input, output, session) {
       addMarkers(~ lng,
                  ~ lat,
                  popup = ~ content,
-                 clusterOptions = markerClusterOptions())
+                 clusterOptions = markerClusterOptions()) %>%
+      addMiniMap()
   })
   output$table  <- renderDataTable({
     my_all %>%
