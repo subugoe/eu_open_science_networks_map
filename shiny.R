@@ -6,6 +6,7 @@
 library(shiny)
 library(leaflet)
 library(tidyverse)
+library(DT)
 #' load data
 my_all <- readr::read_csv("data/data_table.csv")
 #' define user interface
@@ -31,21 +32,37 @@ ui <- navbarPage("European Research Policy Table",
                        width = 330,
                        height = "auto",
                        
-                       h2("Explore"),
-                       p("Display contact points by EC open science policy strand"),
+                       h4("European Research Policy Table"),
+                       p(
+                         "The European Research Policy Table provides an overview of national contact points associated with European research infrastructure projects. By mapping the landscape, the European Research Policy Table aims to help connect researchers and other stakeholders with expert support on research policy and Open Science issues."
+                       ),
+                       p(
+                         "The European Research Policy Table currently covers the following initiatives:
+                         "
+                       ),
                        
                        checkboxInput("openaire", "OpenAIRE (NOADs)", TRUE),
                        checkboxInput("rda", "Research Data Alliance (RDA) Europe Nodes", TRUE),
                        checkboxInput("egi", "EGI NLIs (International Liaisons)", TRUE),
                        checkboxInput("gofair", "GO FAIR", TRUE)
                        ,
-                       p("Contact:"),
-                       a(href = "mailto:fava@sub.uni-goettingen.de", "Ilaria Favia")
+                       p("Contacts:"),
+                       p(
+                         tags$a(href = "mailto:fava@sub.uni-goettingen.de", "Ilaria Favia"),
+                         " | ",
+                         tags$a(href = "mailto:bangert@sub.uni-goettingen.de", "Daniel Bangert")
+                       )
                      ),
-                     tags$div(id = "cite",
-                              'Build by State and University Library Göttingen')
+                     tags$div(
+                       id = "cite",
+                       'This applications is build by State and University Library Göttingen using open source tools. Source code hosted on ',
+                       a(href = "https://github.com/njahn82/eu_science_policy_table", "GitHub.")
+                     )
                    )
-                 ))
+                 ),
+                 tabPanel("Table View", 
+                          dataTableOutput("table"))
+                 )
 #' data
 server <- function(input, output, session) {
   strands_oaire <- eventReactive(input$openaire, {
@@ -72,11 +89,21 @@ server <- function(input, output, session) {
       )) %>%
       leaflet() %>%
       addTiles() %>%
-      addMarkers( ~ lng,
-                  ~ lat,
-                  popup = ~ content,
-                  clusterOptions = markerClusterOptions())
+      addMarkers(~ lng,
+                 ~ lat,
+                 popup = ~ content,
+                 clusterOptions = markerClusterOptions())
   })
+  output$table  <- renderDataTable({
+    my_all %>%
+      filter(role %in% c(
+        strands_oaire(),
+        strands_rda(),
+        strands_egi(),
+        strands_gofair()
+      )) %>%
+      select(2:5, Country)
+  }, rownames = FALSE, filter = 'bottom')
 }
 #run app
 shinyApp(ui, server)
