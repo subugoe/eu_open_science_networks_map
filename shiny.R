@@ -62,7 +62,8 @@ server <- function(input, output, session) {
   output$map <- renderLeaflet({
     leaflet(points()) %>%
       addTiles() %>%
-      addMarkers(~ lng, ~ lat, popup = ~ content)
+      addMarkers(~ lng, ~ lat, popup = ~ content, 
+                 clusterOptions = markerClusterOptions())
   })
 }
 #run app
