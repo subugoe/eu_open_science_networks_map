@@ -34,36 +34,48 @@ ui <- navbarPage("European Research Policy Table",
                        h2("Explore"),
                        p("Display contact points by EC open science policy strand"),
                        
-                       shiny::selectInput(
-                         "x",
-                         label = NULL,
-                         choices = c(
-                           "OpenAIRE (NOADs)",
-                           "RDA National Groups (chairs, from RDA website)",
-                           "GoFAIR (TBC)"
-                         ),
-                         selected = "OpenAIRE (NOADs)",
-                         multiple = FALSE
-                       ),
+                       checkboxInput("openaire", "OpenAIRE (NOADs)", TRUE),
+                       checkboxInput("rda", "Research Data Alliance (RDA) Europe Nodes", TRUE),
+                       checkboxInput("egi", "EGI NLIs (International Liaisons)", TRUE),
+                       checkboxInput("gofair", "GO FAIR", TRUE)
+                       ,
                        p("Contact:"),
-                       a(href="mailto:fava@sub.uni-goettingen.de", "Ilaria Fabia")
+                       a(href = "mailto:fava@sub.uni-goettingen.de", "Ilaria Favia")
                      ),
-                     tags$div(id="cite",
+                     tags$div(id = "cite",
                               'Build by State and University Library Göttingen')
                    )
                  ))
 #' data
 server <- function(input, output, session) {
-  points <- eventReactive(input$x, {
-    my_all %>%
-      filter(role == input$x)
+  strands_oaire <- eventReactive(input$openaire, {
+    ifelse(input$openaire, "OpenAIRE (NOADs)", NA)
+  })
+  strands_rda <- eventReactive(input$rda, {
+    ifelse(input$rda, "RDA Europe (Nodes)", NA)
+  })
+  strands_egi <- eventReactive(input$egi, {
+    ifelse(input$egi, "EGI NLIs (International Liaison)", NA)
+  })
+  strands_gofair <- eventReactive(input$gofair, {
+    ifelse(input$gofair, "GoFAIR (TBC)", NA)
   })
   
+  
   output$map <- renderLeaflet({
-    leaflet(points()) %>%
+    my_all %>%
+      filter(role %in% c(
+        strands_oaire(),
+        strands_rda(),
+        strands_egi(),
+        strands_gofair()
+      )) %>%
+      leaflet() %>%
       addTiles() %>%
-      addMarkers(~ lng, ~ lat, popup = ~ content, 
-                 clusterOptions = markerClusterOptions())
+      addMarkers( ~ lng,
+                  ~ lat,
+                  popup = ~ content,
+                  clusterOptions = markerClusterOptions())
   })
 }
 #run app
