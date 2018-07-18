@@ -1,4 +1,4 @@
-#' simple dashboard showing contact points for EC open science policy implemntation
+#' simple dashboard showing contact points for EC open science policy implementation
 #'
 #' re-uses a lot of code from SuperZip example from Joe Cheng <joe@rstudio.com>
 #'
@@ -10,7 +10,7 @@ library(DT)
 #' load data
 my_all <- readr::read_csv("data/data_table.csv")
 #' define user interface
-ui <- navbarPage("European Research Policy Table",
+ui <- navbarPage("European Research Information Policy Table",
                  id = "nav",
                  tabPanel(
                    "Interactive map",
@@ -32,12 +32,12 @@ ui <- navbarPage("European Research Policy Table",
                        width = 330,
                        height = "auto",
                        
-                       h4("European Research Policy Table"),
+                       h4("European Research Information Policy Table"),
                        p(
-                         "The European Research Policy Table provides an overview of national contact points associated with European research infrastructure projects. By mapping the landscape, the European Research Policy Table aims to help connect researchers and other stakeholders with expert support on research policy and Open Science issues."
+                         "The European Research Information Policy Table provides an overview of national contact points associated with European research infrastructure projects. By mapping the landscape, the European Research Information Policy Table aims to help connect researchers and other stakeholders with expert support on research policy and Open Science issues."
                        ),
                        p(
-                         "The European Research Policy Table currently covers the following initiatives:
+                         "The European Research Information Policy Table currently covers the following initiatives:
                          "
                        ),
                        
@@ -55,7 +55,7 @@ ui <- navbarPage("European Research Policy Table",
                      ),
                      tags$div(
                        id = "cite",
-                       'This applications is build by State and University Library Göttingen using open source tools. Source code hosted on ',
+                       'This application is built by the State and University Library Göttingen using open source tools. Source code hosted on ',
                        a(href = "https://github.com/njahn82/eu_science_policy_table", "GitHub.")
                      )
                    )
