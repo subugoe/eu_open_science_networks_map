@@ -1,25 +1,57 @@
 #' tyding spreadsheet
 library(tidyverse)
-sheets <- length(readxl::excel_sheets("data/einfra_contacts.xlsx"))
-purrr::map_df(2:sheets, function(x) {
-             readxl::read_xlsx("data/einfra_contacts.xlsx", sheet = x) %>% 
-    gather(2:18, key = "role", value = "contact") %>%
-    filter(!is.na(contact)) %>%
-    select(grid_id = 1, 2:3)
-  }) -> tt
-#' get grid info
-grid <- read_csv("data/grid.csv")
-
-tt %>%
-  inner_join(grid, by = c("grid_id" = "ID")) %>%
-  select(-8:-10) %>%
-  mutate(content = paste0(
-                 "<b><a href='", link,"'>", Name, "</a></b></br>",
-                 role, "</br>",
-                contact)) -> my_df
-readr::write_csv(my_df, "data/data_table.csv")
-
+my_df <- readxl::read_xlsx("data/refine_all.xlsx") %>%
+  mutate(wikidata_link = paste0("https://www.wikidata.org/wiki/", `Institution Wikidata ID`)) %>%
+  mutate(contact_1 = ifelse(
+    is.na(contact),
+    NA,
+    paste0("<a href='mailto:", email, "'>", contact, "</a><br/>")
+  )) %>%
+  mutate(contact_2 = ifelse(
+    is.na(contact_secondary),
+    NA,
+    paste0(
+      "<a href='mailto:",
+      email_secondary,
+      "'>",
+      contact_secondary,
+      "</a><br/>"
+    )
+  )) %>%
+  mutate(contact_3 = ifelse(
+    is.na(contact_tertiary),
+    NA,
+    paste0(
+      "<a href='mailto:",
+      email_tertiary,
+      "'>",
+      contact_tertiary,
+      "</a>"
+    )
+  )) %>%
+  mutate(
+    content = paste0(
+      "<b><a href='",
+      wikidata_link,
+      "'>",
+      Name,
+      "</a></b><p>",
+      role,
+      ":</br>",
+      ifelse(is.na(contact_1), "", contact_1),
+      ifelse(is.na(contact_2), "", contact_2),
+      ifelse(is.na(contact_3), "", contact_3),
+      "</p>"
+    )
+  )
+#' test leaflet
+library(leaflet)
 my_df %>%
   leaflet() %>%
   addTiles() %>%
-  addMarkers(~ lng, ~ lat, popup = ~ content, clusterOptions = markerClusterOptions())
+  addMarkers( ~ lng,
+              ~ lat,
+              popup = ~ content,
+              clusterOptions = markerClusterOptions())
+#' export it
+write_csv(my_df, "data/data_table.csv")

@@ -75,7 +75,7 @@ server <- function(input, output, session) {
     ifelse(input$egi, "EGI NLIs (International Liaison)", NA)
   })
   strands_gofair <- eventReactive(input$gofair, {
-    ifelse(input$gofair, "GoFAIR (TBC)", NA)
+    ifelse(input$gofair, "GO FAIR", NA)
   })
   
   
@@ -103,7 +103,16 @@ server <- function(input, output, session) {
         strands_egi(),
         strands_gofair()
       )) %>%
-      select(2:5, Country)
+      unite(contact_email, contact, email) %>% 
+      unite(contact_email_2, contact_secondary, email_secondary) %>%
+      unite(contact_email_3, contact_tertiary, email_tertiary) %>%
+      gather(4:6, key = type, value = contact) %>%
+      separate(contact, c("Contact", "Email"), sep = "_") %>% 
+      select(Initiative = role, 
+             Institution = Name, 
+             Country, City, Contact, Email) %>%
+      filter(!Email == "NA")
+    
   }, rownames = FALSE, filter = 'bottom')
 }
 #run app
