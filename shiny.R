@@ -7,6 +7,7 @@ library(shiny)
 library(leaflet)
 library(tidyverse)
 library(DT)
+library(writexl)
 #' load data
 my_all <- readr::read_csv("data/data_table.csv")
 #' define user interface
@@ -62,7 +63,10 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                    )
                  ),
                  tabPanel("Table View", 
-                          dataTableOutput("table"))
+                          dataTableOutput("table"),
+                          downloadButton("download_csv", "Download (csv)"),
+                          downloadButton("download_xlsx", "Download (xlsx)")
+                 )
                  )
 #' data
 server <- function(input, output, session) {
@@ -96,7 +100,7 @@ server <- function(input, output, session) {
                  clusterOptions = markerClusterOptions()) %>%
       addMiniMap()
   })
-  output$table  <- renderDataTable({
+  data_input <- reactive({
     my_all %>%
       filter(role %in% c(
         strands_oaire(),
@@ -113,8 +117,27 @@ server <- function(input, output, session) {
              Institution = Name, 
              Country, City, Contact, Email) %>%
       filter(!Email == "NA")
-    
+  })
+  output$table  <- renderDataTable({
+    data_input()
   }, rownames = FALSE, filter = 'bottom')
+  
+  output$download_csv <- downloadHandler(
+    filename = function() {
+      paste("eu_os_networks", Sys.Date(), ".csv", sep = "")
+    },
+    content = function(file) {
+      readr::write_csv(data_input(), file)
+    }
+  )
+  output$download_xlsx <- downloadHandler(
+    filename = function() {
+      paste("eu_os_networks", Sys.Date(), ".xlsx", sep = "")
+    },
+    content = function(file) {
+      writexl::write_xlsx(data_input(), file)
+    }
+  )
 }
 #run app
 shinyApp(ui, server)
