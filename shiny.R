@@ -10,7 +10,7 @@ library(DT)
 #' load data
 my_all <- readr::read_csv("data/data_table.csv")
 #' define user interface
-ui <- navbarPage("European Research Information Policy Table",
+ui <- navbarPage("European Open Science Networks (Beta)",
                  id = "nav",
                  tabPanel(
                    "Interactive map",
@@ -32,21 +32,22 @@ ui <- navbarPage("European Research Information Policy Table",
                        width = 330,
                        height = "auto",
                        
-                       h4("European Research Information Policy Table"),
+                       h4("European Open Science Networks"),
                        p(
-                         "The European Research Information Policy Table provides an overview of national contact points associated with European research infrastructure projects. By mapping the landscape, the European Research Information Policy Table aims to help connect researchers and other stakeholders with expert support on research policy and Open Science issues."
+                         "This dashboard provides an overview of national contact points associated with European Open Science networks. By mapping the landscape, this application aims to help connect researchers and other stakeholders with expert support on research policy and Open Science issues."
                        ),
                        p(
-                         "The European Research Information Policy Table currently covers the following initiatives:
+                         "The following initiatives are currently covered:
                          "
                        ),
                        
-                       checkboxInput("openaire", "OpenAIRE (NOADs)", TRUE),
-                       checkboxInput("rda", "Research Data Alliance (RDA) Europe Nodes", TRUE),
-                       checkboxInput("egi", "EGI NLIs (International Liaisons)", TRUE),
-                       checkboxInput("gofair", "GO FAIR", TRUE)
+                       checkboxInput("openaire", tags$a(href = "https://www.openaire.eu/contact-noads" ,"OpenAIRE (NOADs)"), TRUE),
+                       checkboxInput("rda", tags$a(href = "https://www.rd-alliance.org/groups/national-groups", "Research Data Alliance (RDA) Europe Nodes"), TRUE),
+                       checkboxInput("egi", tags$a(href = "https://wiki.egi.eu/wiki/NGI_International_Liaison" ,"EGI NLIs (International Liaisons)"), TRUE),
+                       checkboxInput("gofair", tags$a(href = "https://www.go-fair.org/countries/map/", "GO FAIR"), TRUE)
                        ,
-                       p("Contacts:"),
+                       p('We welcome contributions to this application. 
+                         Please contact us or create an issue on', tags$a(href = "https://github.com/subugoe/eu_open_science_networks_map", "GitHub")),
                        p(
                          tags$a(href = "mailto:fava@sub.uni-goettingen.de", "Ilaria Favia"),
                          " | ",
@@ -56,7 +57,7 @@ ui <- navbarPage("European Research Information Policy Table",
                      tags$div(
                        id = "cite",
                        'This application is built by the State and University Library Göttingen using open source tools. Source code hosted on ',
-                       a(href = "https://github.com/njahn82/eu_science_policy_table", "GitHub.")
+                       a(href = "https://github.com/subugoe/eu_open_science_networks_map", "GitHub.")
                      )
                    )
                  ),
