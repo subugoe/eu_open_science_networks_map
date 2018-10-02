@@ -23,7 +23,7 @@ This application is managed by Ilaria Fava, Daniel Bangert and Najko Jahn from t
 
 ## Acknowledgements
 
-This open source [Shiny](https://shiny.rstudio.com/) application is inspired by [RStudio's SuperZIP demo](https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example). Data was normalized using Wikidata.
+This open source [Shiny](https://shiny.rstudio.com/) application makes use of [RStudio's SuperZIP demo](https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example). Data was normalized using Wikidata.
 
 ## License
 
