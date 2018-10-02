@@ -35,10 +35,10 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                        
                        h4("European Open Science Networks"),
                        p(
-                         "This dashboard provides an overview of national contact points associated with European Open Science networks. By mapping the landscape, this application aims to help connect researchers and other stakeholders with expert support on research policy and Open Science issues."
+                         "European Open Science Networks provides an overview of national contact points associated with Open Science initiatives in Europe."
                        ),
                        p(
-                         "The following initiatives are currently covered:
+                         "Filter by network:
                          "
                        ),
                        
@@ -47,8 +47,7 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                        checkboxInput("egi", tags$a(href = "https://wiki.egi.eu/wiki/NGI_International_Liaison" ,"EGI NLIs (International Liaisons)"), TRUE),
                        checkboxInput("gofair", tags$a(href = "https://www.go-fair.org/countries/map/", "GO FAIR"), TRUE)
                        ,
-                       p('We welcome contributions to this application. 
-                         Please contact us or create an issue on', tags$a(href = "https://github.com/subugoe/eu_open_science_networks_map", "GitHub")),
+                       p('Contact us:', tags$a(href = "https://github.com/subugoe/eu_open_science_networks_map", "GitHub")),
                        p(
                          tags$a(href = "mailto:fava@sub.uni-goettingen.de", "Ilaria Favia"),
                          " | ",
@@ -66,7 +65,9 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                           dataTableOutput("table"),
                           downloadButton("download_csv", "Download (csv)"),
                           downloadButton("download_xlsx", "Download (xlsx)")
-                 )
+                 ),
+                 tabPanel("About",
+                          includeMarkdown("about.md"))
                  )
 #' data
 server <- function(input, output, session) {
