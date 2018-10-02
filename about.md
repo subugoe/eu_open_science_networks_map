@@ -2,11 +2,11 @@
 
 By mapping the European landscape, this application aims to help connect researchers and other stakeholders with expert support on research policy and Open Science issues.
 
-## Map view
+## Interactive Map
 
 Use the Map view to navigate within Europe. National contact points are represented by markers with further links to the institution and email addresses to make contact.
 
-## Table view
+## Table View
 
 To search the data directly, use the Table view. Contact points can be searched by various fields including country, name and institution. In addition, data can be downloaded as a csv or xlsx file. 
 
@@ -14,7 +14,7 @@ To search the data directly, use the Table view. Contact points can be searched 
 
 European Open Science Networks is in beta and we welcome contributions and suggestions. Please contact us or create an issue on [GitHub](https://github.com/subugoe/eu_open_science_networks_map).
 
-[Ilaria Fava](mailto:fava@sub.uni-goettingen.de) | [Daniel Bangert](mailto:bangert@sub.uni-goettingen.de)
+[Ilaria Fava](mailto:fava@sub.uni-goettingen.de) | [Daniel Bangert](mailto:bangert@sub.uni-goettingen.de) 
 Göttingen State and University Library
 
 ## Who we are
