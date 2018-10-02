@@ -14,7 +14,7 @@ To search the data directly, use the Table view. Contact points can be searched 
 
 European Open Science Networks is in beta and we welcome contributions and suggestions. Please contact us or create an issue on [GitHub](https://github.com/subugoe/eu_open_science_networks_map).
 
-[Ilaria Fava](mailto:fava@sub.uni-goettingen.de) | Daniel Bangert(mailto:bangert@sub.uni-goettingen.de)
+[Ilaria Fava](mailto:fava@sub.uni-goettingen.de) | [Daniel Bangert](mailto:bangert@sub.uni-goettingen.de)
 Göttingen State and University Library
 
 ## Who we are
