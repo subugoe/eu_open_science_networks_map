@@ -9,7 +9,7 @@ url_fetch <- function(wikidata_id = NULL) {
     purrr::map("P856") %>%
     purrr::map("mainsnak") %>%
     purrr::map_df("datavalue") %>%
-    mutate(wikidata_id = wikidata_id) %>%
+    mutate(wikidata_id = wikidata_id)
     
 }
 wd_urls <- purrr::map_df(my_df$`Institution Wikidata ID`, url_fetch)
