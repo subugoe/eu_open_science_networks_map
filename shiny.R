@@ -47,7 +47,7 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                        checkboxInput("egi", tags$a(href = "https://wiki.egi.eu/wiki/NGI_International_Liaison" ,"EGI NLIs (International Liaisons)"), TRUE),
                        checkboxInput("gofair", tags$a(href = "https://www.go-fair.org/countries/map/", "GO FAIR"), TRUE)
                        ,
-                       p('Contact us:', tags$a(href = "https://github.com/subugoe/eu_open_science_networks_map", "GitHub")),
+                       p('Contact us:'),
                        p(
                          tags$a(href = "mailto:fava@sub.uni-goettingen.de", "Ilaria Favia"),
                          " | ",
@@ -56,7 +56,7 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                      ),
                      tags$div(
                        id = "cite",
-                       'This application is built by the State and University Library Göttingen using open source tools. Source code hosted on ',
+                       'This application is built by the Göttingen State and University Library using open source tools. Source code hosted on ',
                        a(href = "https://github.com/subugoe/eu_open_science_networks_map", "GitHub.")
                      )
                    )
