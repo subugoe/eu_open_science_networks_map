@@ -47,6 +47,10 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                        checkboxInput("egi", tags$a(href = "https://wiki.egi.eu/wiki/NGI_International_Liaison" ,"EGI NLIs (International Liaisons)"), TRUE),
                        checkboxInput("gofair", tags$a(href = "https://www.go-fair.org/countries/map/", "GO FAIR"), TRUE)
                        ,
+                       checkboxInput("geant", tags$a(href = "https://www.geant.org/About/NRENs", "Géant NRENs"), TRUE)
+                       ,
+                       checkboxInput("prace", tags$a(href = "http://www.prace-ri.eu/members/", "PRACE members"), TRUE)
+                       ,
                        p('Contact us:'),
                        p(
                          tags$a(href = "mailto:fava@sub.uni-goettingen.de", "Ilaria Favia"),
@@ -83,6 +87,12 @@ server <- function(input, output, session) {
   strands_gofair <- eventReactive(input$gofair, {
     ifelse(input$gofair, "GO FAIR", NA)
   })
+  strands_geant <- eventReactive(input$geant, {
+    ifelse(input$geant, "Geant NREN", NA)
+  })
+  strands_prace <- eventReactive(input$prace, {
+    ifelse(input$prace, "PRACE Member", NA)
+  })
   
   
   output$map <- renderLeaflet({
@@ -91,7 +101,9 @@ server <- function(input, output, session) {
         strands_oaire(),
         strands_rda(),
         strands_egi(),
-        strands_gofair()
+        strands_gofair(),
+        strands_geant(),
+        strands_prace()
       )) %>%
       leaflet() %>%
       addTiles() %>%
@@ -107,7 +119,9 @@ server <- function(input, output, session) {
         strands_oaire(),
         strands_rda(),
         strands_egi(),
-        strands_gofair()
+        strands_gofair(),
+        strands_geant(),
+        strands_prace()
       )) %>%
       unite(contact_email, contact, email) %>% 
       unite(contact_email_2, contact_secondary, email_secondary) %>%

@@ -1,5 +1,7 @@
 #' tyding spreadsheet
 library(tidyverse)
+library(googledrive)
+googledrive::drive_download(as_id("1_CQUEDJsrXaCFcPvC_ypGqorhvprbeCGvdw8erAkTAQ"), "data/refine_all.xlsx", overwrite = TRUE)
 my_df <- readxl::read_xlsx("data/refine_all.xlsx") %>%
   mutate(wikidata_link = paste0("https://www.wikidata.org/wiki/", `Institution Wikidata ID`)) %>%
   mutate(contact_1 = ifelse(
