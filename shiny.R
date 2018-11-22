@@ -42,9 +42,9 @@ ui <- navbarPage("European Open Science Networks (Beta)",
                          "
                        ),
                        
-                       checkboxInput("openaire", tags$a(href = "https://www.openaire.eu/contact-noads" ,"OpenAIRE (NOADs)"), TRUE),
+                       checkboxInput("openaire", tags$a(href = "https://www.openaire.eu/contact-noads" ,"OpenAIRE NOADs"), TRUE),
                        checkboxInput("rda", tags$a(href = "https://www.rd-alliance.org/groups/national-groups", "Research Data Alliance (RDA) Europe Nodes"), TRUE),
-                       checkboxInput("egi", tags$a(href = "https://wiki.egi.eu/wiki/NGI_International_Liaison" ,"EGI NLIs (International Liaisons)"), TRUE),
+                       checkboxInput("egi", tags$a(href = "https://wiki.egi.eu/wiki/NGI_International_Liaison" ,"EGI NGIs"), TRUE),
                        checkboxInput("gofair", tags$a(href = "https://www.go-fair.org/countries/map/", "GO FAIR"), TRUE)
                        ,
                        checkboxInput("geant", tags$a(href = "https://www.geant.org/About/NRENs", "Géant NRENs"), TRUE)
