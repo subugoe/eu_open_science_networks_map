@@ -28,6 +28,17 @@ my_df <- readxl::read_xlsx("data/refine_all.xlsx") %>%
       email_tertiary,
       "'>",
       contact_tertiary,
+      "</a></br>"
+    )
+  )) %>%
+  mutate(contact_4 = ifelse(
+    is.na(contact_quaternary),
+    NA,
+    paste0(
+      "<a href='mailto:",
+      email_quaternary,
+      "'>",
+      contact_quaternary,
       "</a>"
     )
   )) %>%
@@ -43,6 +54,7 @@ my_df <- readxl::read_xlsx("data/refine_all.xlsx") %>%
       ifelse(is.na(contact_1), "", contact_1),
       ifelse(is.na(contact_2), "", contact_2),
       ifelse(is.na(contact_3), "", contact_3),
+      ifelse(is.na(contact_4), "", contact_4),
       "</p>"
     )
   )
